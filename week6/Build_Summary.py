@@ -1,6 +1,5 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-# from airflow.operators import PythonOperator
 from airflow.models import Variable
 from airflow.hooks.postgres_hook import PostgresHook
 from datetime import datetime
@@ -24,8 +23,6 @@ def execSQL(**context):
     schema = context['params']['schema'] 
     table = context['params']['table']
     select_sql = context['params']['sql'].format(execution_date=context['execution_date'])
-
-   # logging.info(context['execution_date'])
 
     logging.info(schema)
     logging.info(table)
@@ -68,7 +65,7 @@ execsql = PythonOperator(
         'table': 'nps_summary',
         'sql' : """SELECT 
                         DATE(created_at) as date,
-                        count(CASE WHEN score >= '9' THEN 1 END) - count(CASE WHEN score <= '6' THEN 1 END) / count(score) as nps
+                        100 * (count(CASE WHEN score >= '9' THEN 1 END) - count(CASE WHEN score <= '6' THEN 1 END)) / count(score)  as nps
                         FROM sosb0421.nps 
                         WHERE DATE(created_at) = DATE('{execution_date}')
                         GROUP BY DATE(created_at);
