@@ -1,5 +1,8 @@
 # lecture-data-engineering-programmers
 [스터디/6기] 실리콘밸리에서 날아온 데이터 엔지니어링 스타터 키트 with Python
+- Data Engineer에 대한 이해
+- SQL 기본 개념
+- Airflow 통한 ETL
 
 ### 강의 내용 및 실습
 1.SQL의 이해 (1~3 주차)
